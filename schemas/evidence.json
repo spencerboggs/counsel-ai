@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceItem",
+  "type": "object",
+  "required": ["id", "ticker", "claim", "source_name", "source_type", "retrieved_at"],
+  "properties": {
+    "id": { "type": "string" },
+    "ticker": { "type": "string" },
+    "claim": { "type": "string" },
+    "source_name": { "type": "string" },
+    "source_url": { "type": ["string", "null"] },
+    "source_type": {
+      "type": "string",
+      "enum": ["primary", "secondary", "tertiary", "derived"]
+    },
+    "published_at": { "type": ["string", "null"] },
+    "retrieved_at": { "type": "string" },
+    "supporting_text": { "type": ["string", "null"] },
+    "data_points": { "type": "object" },
+    "reliability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "freshness": { "type": "number", "minimum": 0, "maximum": 1 },
+    "directness": { "type": "number", "minimum": 0, "maximum": 1 },
+    "corroboration": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

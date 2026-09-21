@@ -1,0 +1,94 @@
+application:
+  theme: system
+  name: AI Counsel
+
+research:
+  max_parallel_agents: 4
+  max_runtime_minutes: 15
+  require_citations: true
+
+discovery:
+  candidate_pool_size: 15
+  output_count: 10
+  screen_from_universe: 5000
+  investable_amount: 100
+  min_whole_shares: 5
+  min_price: 1.0
+  max_market_cap: 40000000000
+  counsel_top_n: 5
+  min_avg_volume: 150000
+  daytrade_min_avg_volume: 750000
+
+discovery_score:
+  fundamental_quality: 0.15
+  growth_quality: 0.15
+  financial_health: 0.10
+  valuation: 0.10
+  momentum: 0.15
+  catalysts: 0.05
+  risk: 0.08
+  evidence_quality: 0.05
+  affordability: 0.17
+
+scoring:
+  scale_min: 0
+  scale_max: 100
+  decimals: 1
+
+providers:
+  ollama:
+    enabled: true
+    base_url: http://127.0.0.1:11434
+  openrouter:
+    enabled: false
+  groq:
+    enabled: false
+  gemini:
+    enabled: false
+
+models:
+  - id: local-fast
+    provider: ollama
+    model: auto
+    roles:
+      - discovery
+      - extraction
+      - fundamental
+    enabled: true
+    priority: 100
+  - id: local-reasoner
+    provider: ollama
+    model: auto
+    roles:
+      - skeptic
+      - counsel
+    enabled: true
+    priority: 90
+
+autopilot:
+  cycle_seconds_default: 120
+  max_positions_default: 8
+  max_notional_pct_default: 0.06
+  # SEC fair-access User-Agent (include a real contact email in production)
+  sec_user_agent: "AICounselAutopilot/0.1 (local research; contact: local-user@localhost)"
+  note: >
+    Autopilot uses public SEC EDGAR, optional FRED (fred_api_key in secrets),
+    and Yahoo quotes already in-app. No social login scraping.
+
+# Free-tier risk gates (no paid APIs). Applied by CapitalGate before every order.
+trading:
+  regular_hours_only: true
+  allow_extended_hours: false
+  quote_max_age_seconds: 120
+  max_order_notional: 5000
+  max_trades_per_day: 20
+  max_daily_realized_loss: 500
+  max_positions: 8
+  # Hard cap per new bet / per-symbol exposure (~6% of capital)
+  max_bet_pct: 0.06
+  max_symbol_notional_pct: 0.06
+  # Half-Kelly by default (safer than full Kelly)
+  kelly_fraction: 0.5
+  kelly_min_edge: 0.0
+  block_duplicate_open_orders: true
+  reject_abnormal_price_move_pct: 0.35

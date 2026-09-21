@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentFinding",
+  "type": "object",
+  "required": ["agent_id", "ticker", "summary", "evidence_ids"],
+  "properties": {
+    "agent_id": { "type": "string" },
+    "ticker": { "type": "string" },
+    "summary": { "type": "string" },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dimension_scores": { "type": "object" },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

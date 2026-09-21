@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+  --font-display: "IBM Plex Sans", "Segoe UI", sans-serif;
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-score: var(--score);
+}
+
+:root {
+  color-scheme: light;
+  --surface: #f3f1ec;
+  --surface-raised: #fffcf7;
+  --surface-muted: #e8e4db;
+  --border: #d4cec2;
+  --border-strong: #b8b0a0;
+  --ink: #1c1915;
+  --ink-muted: #5c564c;
+  --ink-subtle: #8a8274;
+  --accent: #0f5c4c;
+  --accent-fg: #f4fff9;
+  --success: #1f7a4d;
+  --warning: #9a6b12;
+  --danger: #a33b2d;
+  --score: #0b4f8a;
+  --grid-line: rgba(28, 25, 21, 0.06);
+  --glow: rgba(15, 92, 76, 0.12);
+}
+
+.dark {
+  color-scheme: dark;
+  --surface: #12151a;
+  --surface-raised: #1a1f27;
+  --surface-muted: #242b35;
+  --border: #2e3642;
+  --border-strong: #445062;
+  --ink: #e8edf4;
+  --ink-muted: #9aa6b5;
+  --ink-subtle: #6d7a8b;
+  --accent: #3dba9a;
+  --accent-fg: #061510;
+  --success: #4ecb8a;
+  --warning: #e0b44a;
+  --danger: #e07264;
+  --score: #6db3ef;
+  --grid-line: rgba(232, 237, 244, 0.05);
+  --glow: rgba(61, 186, 154, 0.14);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, var(--glow), transparent 55%),
+      linear-gradient(180deg, var(--surface-raised), var(--surface) 40%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 23px,
+        var(--grid-line) 24px
+      );
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
